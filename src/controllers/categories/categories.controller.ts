@@ -1,8 +1,8 @@
+import { AppService } from './../../app.service';
 import { Controller, Get, Param, Query } from '@nestjs/common';
-import { AppService } from './app.service';
 
-@Controller()
-export class AppController {
+@Controller('categories')
+export class CategoriesController {
   constructor(private readonly appService: AppService) {}
 
   @Get('categories/:categoryId/products/:productId')
