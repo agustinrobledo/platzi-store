@@ -1,7 +1,17 @@
-import { Controller, Get, Param, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 
 interface IMessage {
   message: string;
+  payload?: any;
 }
 
 @Controller('products')
@@ -24,9 +34,25 @@ export class ProductsController {
   }
 
   @Post()
-  create(): IMessage {
+  create(@Body() payload: any): IMessage {
     return {
       message: 'Post method',
+      payload,
+    };
+  }
+
+  @Put(':id')
+  update(@Param('id') id: number, @Body() payload: any): IMessage {
+    return {
+      message: `Put method in ProductId: ${id}`,
+      payload,
+    };
+  }
+
+  @Delete(':id')
+  delete(@Param('id') id: number): IMessage {
+    return {
+      message: `Delete method in ProductId: ${id}`,
     };
   }
 }
