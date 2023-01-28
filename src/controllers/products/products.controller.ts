@@ -1,5 +1,4 @@
 import { Controller, Get, Param, Post, Query } from '@nestjs/common';
-import { AppService } from 'src/app.service';
 
 interface IMessage {
   message: string;
@@ -7,8 +6,6 @@ interface IMessage {
 
 @Controller('products')
 export class ProductsController {
-  constructor(private readonly appService: AppService) {}
-
   @Get()
   GetAllProducts(
     @Query('offset') offset = 0,
