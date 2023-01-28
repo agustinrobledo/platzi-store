@@ -5,7 +5,7 @@ import { Controller, Get, Param, Query } from '@nestjs/common';
 export class CategoriesController {
   constructor(private readonly appService: AppService) {}
 
-  @Get('categories/:categoryId/products/:productId')
+  @Get(':categoryId/products/:productId')
   getCategory(
     @Param('categoryId') categoryId: string,
     @Param('productId') productId: string,
