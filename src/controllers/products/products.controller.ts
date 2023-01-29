@@ -22,7 +22,7 @@ export class ProductsController {
     @Query('limit') limit = 0,
   ): IMessage {
     return {
-      message: `Products, Offset: ${offset}, Limit: ${limit}`,
+      message: `Get Products, Offset: ${offset}, Limit: ${limit}i`,
     };
   }
 
