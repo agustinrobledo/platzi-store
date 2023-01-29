@@ -31,7 +31,7 @@ export class ProductsController {
   @HttpCode(HttpStatus.ACCEPTED)
   GetProductById(@Param('productId') productId: string): IMessage {
     return {
-      message: `Product: ${productId}`,
+      message: `Product: ${productId}.`,
     };
   }
 
