@@ -46,11 +46,8 @@ export class ProductsController {
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id') id: number, @Body() payload: any): IMessage {
-    return {
-      message: `Put method in ProductId: ${id}`,
-      payload,
-    };
+  update(@Param('id') id: string, @Body() payload: any): Product {
+    return this.ProductService.update(Number(id), payload)
   }
 
   @Delete(':id')
