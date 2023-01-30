@@ -11,6 +11,9 @@ import {
   Query,
 } from '@nestjs/common';
 
+import { ProductService } from 'src/services/product/product.service';
+import { Product } from 'src/entities/product.entity';
+
 interface IMessage {
   message: string;
   payload?: any;
@@ -18,30 +21,27 @@ interface IMessage {
 
 @Controller('products')
 export class ProductsController {
+
+  constructor(private ProductService: ProductService) { }
+
   @Get() GetAllProducts(
     @Query('offset') offset = 0,
     @Query('limit') limit = 0,
-  ): IMessage {
-    return {
-      message: `Get Products, Offset: ${offset}, Limit: ${limit}i`,
-    };
+  ): Product[] {
+    return this.ProductService.findAll()
   }
 
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
-  GetProductById(@Param('productId') productId: string): IMessage {
-    return {
-      message: `Product: ${productId}.`,
-    };
+  GetProductById(@Param('productId') productId: string): Product {
+    return this.ProductService.findOne(Number(productId))
   }
 
   @Post()
   @HttpCode(HttpStatus.OK)
-  create(@Body() payload: any): IMessage {
-    return {
-      message: 'Post method',
-      payload,
-    };
+  create(@Body() payload: any): Product {
+    return this.ProductService.create(payload)
+
   }
 
   @Put(':id')
