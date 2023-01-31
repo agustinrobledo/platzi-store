@@ -52,9 +52,7 @@ export class ProductsController {
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
-  delete(@Param('id') id: number): IMessage {
-    return {
-      message: `Delete method in ProductId: ${id}`,
-    };
+  delete(@Param('id') id: number): boolean {
+    return this.ProductService.delete(Number(id))
   }
 }

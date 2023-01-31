@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { log } from 'console';
 import { Product } from 'src/entities/product.entity';
 
@@ -19,7 +19,12 @@ export class ProductService {
   }
 
   findOne(id: number) {
-    return this.products.find(item => item.id === id)
+    const product = this.products.find(item => item.id === id)
+    if (!product) {
+      // This throws an error with status code: 404
+      throw new NotFoundException(`Product with id: ${id} not found`)
+    }
+    return product
   }
 
   create(payload: Product) {
@@ -33,9 +38,7 @@ export class ProductService {
   }
 
   update(id: number, payload: Product) {
-    console.log(typeof (id))
     const product = this.findOne(id)
-    console.log(product);
 
     if (product) {
       const index = this.products.findIndex((item) => item.id === id)
@@ -46,6 +49,16 @@ export class ProductService {
       return this.products[index]
     }
     return null
+  }
+
+  delete(id: number) {
+    const index = this.products.findIndex((item) => item.id === id)
+    if (index === -1) {
+      // This throws an error with status code: 404
+      throw new NotFoundException(`Product with id: ${id} not found`)
+    }
+    this.products.splice(index, 1)
+    return true
   }
 
 }
