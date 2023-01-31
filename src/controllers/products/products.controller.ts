@@ -9,11 +9,11 @@ import {
   Post,
   Put,
   Query,
-  ParseIntPipe,
 } from '@nestjs/common';
 
 import { ProductService } from 'src/services/product/product.service';
 import { Product } from 'src/entities/product.entity';
+import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe'
 
 interface IMessage {
   message: string;
