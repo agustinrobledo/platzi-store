@@ -14,6 +14,7 @@ import {
 import { ProductService } from 'src/services/product/product.service';
 import { Product } from 'src/entities/product.entity';
 import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe'
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
 
 interface IMessage {
   message: string;
@@ -40,14 +41,13 @@ export class ProductsController {
 
   @Post()
   @HttpCode(HttpStatus.OK)
-  create(@Body() payload: any): Product {
+  create(@Body() payload: CreateProductDto): Product {
     return this.ProductService.create(payload)
-
   }
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: any): Product {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateProductDto): Product {
     return this.ProductService.update(id, payload)
   }
 
