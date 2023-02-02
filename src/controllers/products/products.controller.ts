@@ -13,7 +13,7 @@ import {
 
 import { ProductService } from 'src/services/product/product.service';
 import { Product } from 'src/entities/product.entity';
-import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe'
+import { ParseIntPipe } from '../../common/parse-int/parse-int.pipe';
 import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
 
 interface IMessage {
@@ -23,37 +23,39 @@ interface IMessage {
 
 @Controller('products')
 export class ProductsController {
-
-  constructor(private ProductService: ProductService) { }
+  constructor(private ProductService: ProductService) {}
 
   @Get() GetAllProducts(
     @Query('offset') offset = 0,
     @Query('limit') limit = 0,
   ): Product[] {
-    return this.ProductService.findAll()
+    return this.ProductService.findAll();
   }
 
   @Get(':productId')
   @HttpCode(HttpStatus.ACCEPTED)
   GetProductById(@Param('productId', ParseIntPipe) productId: number): Product {
-    return this.ProductService.findOne(productId)
+    return this.ProductService.findOne(productId);
   }
 
   @Post()
   @HttpCode(HttpStatus.OK)
   create(@Body() payload: CreateProductDto): Product {
-    return this.ProductService.create(payload)
+    return this.ProductService.create(payload);
   }
 
   @Put(':id')
   @HttpCode(HttpStatus.OK)
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateProductDto): Product {
-    return this.ProductService.update(id, payload)
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductDto,
+  ): Product {
+    return this.ProductService.update(id, payload);
   }
 
   @Delete(':id')
   @HttpCode(HttpStatus.OK)
   delete(@Param('id', ParseIntPipe) id: number): boolean {
-    return this.ProductService.delete(id)
+    return this.ProductService.delete(id);
   }
 }

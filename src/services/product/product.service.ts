@@ -1,25 +1,28 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos';
-import { Product } from 'src/entities/product.entity';
+import { Injectable, NotFoundException } from '@nestjs/common'
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dtos'
+import { Product } from 'src/entities/product.entity'
 
 @Injectable()
 export class ProductService {
   private counterId = 1
-  private products: Product[] = [{
-    id: 1,
-    name: "Product 1",
-    description: "Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.",
-    price: 122,
-    stock: 12,
-    image: "image"
-  }]
+  private products: Product[] = [
+    {
+      id: 1,
+      name: 'Product 1',
+      description:
+        'Lorem ipsum dolor sit amet, qui minim labore adipisicing minim sint cillum sint consectetur cupidatat.',
+      price: 122,
+      stock: 12,
+      image: 'image',
+    },
+  ]
 
   findAll() {
     return this.products
   }
 
   findOne(id: number) {
-    const product = this.products.find(item => item.id === id)
+    const product = this.products.find((item) => item.id === id)
     if (!product) {
       // This throws an error with status code: 404
       throw new NotFoundException(`Product with id: ${id} not found`)
@@ -44,7 +47,7 @@ export class ProductService {
       const index = this.products.findIndex((item) => item.id === id)
       this.products[index] = {
         ...product,
-        ...payload
+        ...payload,
       }
       return this.products[index]
     }
@@ -60,5 +63,4 @@ export class ProductService {
     this.products.splice(index, 1)
     return true
   }
-
 }
